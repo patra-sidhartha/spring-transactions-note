@@ -151,6 +151,7 @@ It acts as a performance hint to both the Spring framework and the underlying JP
 You should apply @Transactional(readOnly = true) to any service method that only fetches data and does not modify the database state.
 
 * Data 1
+  
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 

@@ -138,7 +138,40 @@ Spring Transaction Propagation Explained | Spring Boot Transactions Part 3
 ------------------------------------------------------------------------------------------------------------
 https://www.youtube.com/watch?v=LCltftLZ_W0
 
+## What is The readOnly = true
+The readOnly = true attribute is a configuration option used within Spring's @Transactional annotation to optimize database operations that only read data and do not modify it.
+It acts as a performance hint to both the Spring framework and the underlying JPA provider (like Hibernate).
 
+#Key Functions of readOnly = true
+**Performance Optimization:** When set to true, the persistence provider knows it doesn't need to track changes to the entities you load. It skips internal "dirty checking," which significantly reduces overhead and speeds up the transaction execution.
+**Prevents Data Modification:** It ensures that the transaction session is used purely for reading. If your code attempts an INSERT, UPDATE, or DELETE operation within a readOnly = true block, the provider will usually throw an error or simply ignore the write operation.
+**Database Connection Hints:** In some database systems, this flag allows Spring to use database connection configurations optimized for reading, potentially using different isolation levels or fewer locks.
+
+**When to Use It**
+You should apply @Transactional(readOnly = true) to any service method that only fetches data and does not modify the database state.
+
+* Data 1
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ProductService {
+
+    // This method only retrieves a product; it does not change anything in the DB.
+    @Transactional(readOnly = true) 
+    public Product getProductDetails(Long productId) {
+        return productRepository.findById(productId).orElse(null);
+    }
+
+    // This method needs to write data, so we use the default (readOnly = false).
+    @Transactional // same as @Transactional(readOnly = false)
+    public void updateProductPrice(Long productId, double newPrice) {
+        Product product = productRepository.findById(productId).get();
+        product.setPrice(newPrice);
+        // Hibernate tracks this change and executes an UPDATE query
+        productRepository.save(product); 
+    }
+}
 
 
 Spring-WebFlux

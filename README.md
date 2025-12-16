@@ -184,15 +184,15 @@ Core Options
 	-- **MANDATORY:** Requires an existing transaction; throws an exception if none is present.<br>
 	-- **NEVER**: Must not run within a transaction; throws an exception if a transaction is active.<br>
 	-- **NESTED:** Execute within a nested transaction (if the database supports savepoints); otherwise, behave like REQUIRED. <br>
--** isolation:** This defines the level of isolation from other concurrent transactions to prevent issues like dirty reads, non-repeatable reads, and phantom reads. <br>
-  	-- DEFAULT (default): Uses the underlying database's default isolation level (often READ_COMMITTED). <br>
-	-- READ_UNCOMMITTED: The lowest level; one transaction can read uncommitted changes from another (dirty reads are possible). <br>
-	-- READ_COMMITTED: Prevents dirty reads (only committed data can be read) but allows non-repeatable reads. <br>
-	-- REPEATABLE_READ: Prevents dirty and non-repeatable reads (re-reading data yields the same result) but might still allow phantom reads. <br>
-	-- SERIALIZABLE: The highest, strictest level; fully isolates transactions, preventing all concurrency issues, but can impact performance. <br>
+- **isolation:** This defines the level of isolation from other concurrent transactions to prevent issues like dirty reads, non-repeatable reads, and phantom reads. <br>
+  	-- **DEFAULT (default):** Uses the underlying database's default isolation level (often READ_COMMITTED). <br>
+	-- **READ_UNCOMMITTED:** The lowest level; one transaction can read uncommitted changes from another (dirty reads are possible). <br>
+	-- **READ_COMMITTED:** Prevents dirty reads (only committed data can be read) but allows non-repeatable reads. <br>
+	-- **REPEATABLE_READ:** Prevents dirty and non-repeatable reads (re-reading data yields the same result) but might still allow phantom reads. <br>
+	-- **SERIALIZABLE:** The highest, strictest level; fully isolates transactions, preventing all concurrency issues, but can impact performance. <br>
 - **readOnly:** A performance optimization flag (default false). Setting it to true hints to the persistence provider (like Hibernate/JPA) and the database that no data modifications will occur, allowing for potential performance gains by bypassing dirty checking or using read-only database replicas. <br>
 -- **timeout:** Specifies the maximum duration (in seconds) the transaction can run before the underlying transaction infrastructure automatically rolls it back (default is none or the system default, typically -1). <br>
--- ** rollbackFor:** An array of exception types that, when thrown, will explicitly mark the transaction for rollback. By default, only unchecked exceptions (RuntimeException and Error) trigger a rollback. <br>
+-- **rollbackFor:** An array of exception types that, when thrown, will explicitly mark the transaction for rollback. By default, only unchecked exceptions (RuntimeException and Error) trigger a rollback. <br>
 -- **noRollbackFor:** An array of exception types that, when thrown, will explicitly not cause the transaction to roll back, even if they are unchecked exceptions.
 value or transactionManager: A string qualifier used to specify which PlatformTransactionManager bean to use if multiple are configured in the application context. <br>
 

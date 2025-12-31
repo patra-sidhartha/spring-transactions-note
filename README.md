@@ -196,6 +196,22 @@ Core Options
 -- **noRollbackFor:** An array of exception types that, when thrown, will explicitly not cause the transaction to roll back, even if they are unchecked exceptions.
 value or transactionManager: A string qualifier used to specify which PlatformTransactionManager bean to use if multiple are configured in the application context. <br>
 
+
+-- By default, Spring only rolls back for Unchecked Exceptions (those extending RuntimeException or Error). It does not roll back for Checked Exceptions (those extending Exception but not RuntimeException, such as IOException or SQLException). <br>
+-- You use this attribute when you want the transaction to roll back even if a Checked Exception occurs. <br>
+// Example: Rollback for a checked exception (IOException) <br>
+@Transactional(rollbackFor = {IOException.class, MyCustomCheckedException.class}) <br>
+public void updateData() throws IOException { <br>
+    repository.updateSomeFields(); <br>
+    if (someCondition) { <br>
+        throw new IOException("Critical failure, rolling back."); <br>
+    }
+} <br>
+
+Rollback for All Exceptions: A very common pattern in modern Spring applications is to ensure that any exception triggers a rollback. <br>
+@Transactional(rollbackFor = Exception.class) <br>
+
+
 Spring-WebFlux
 -----------------------
 

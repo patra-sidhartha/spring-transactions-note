@@ -31,116 +31,116 @@ I(Isolation)<br>
 D(Durability)<br>
 	Ensure that commited transactions will never be lost despite of system failures.<br>
 	
-BEGIN_TRANSACTION
-	- Debit from A
-	- Credit to B
-	If All Success
-		COMMIT;
+BEGIN_TRANSACTION <br>
+	- Debit from A <br>
+	- Credit to B <br>
+	If All Success <br>
+		COMMIT;<br>
 	Else:
-		ROLLBACK;
-END_TRANSACTION
+		ROLLBACK;<br>
+END_TRANSACTION<br>
 
-spring-boot-starter-data-jpa
-In SpringBootApplication
+spring-boot-starter-data-jpa<br>
+In SpringBootApplication<br>
 
-@SBA
-// @EnableTrasactionManagement   --> Springboot will do automatically when we use @Transactional annotaion
-p class SpringBootApplication {
-}
+@SBA<br>
+// @EnableTrasactionManagement   --> Springboot will do automatically when we use @Transactional annotaion<br>
+p class SpringBootApplication {<br>
+}<br>
 
-@Transaction can be class level (apply for all public method only) or method level 
-if Private method annotate with @Transactional then it will not apply
+@Transaction can be class level (apply for all public method only) or method level <br>
+if Private method annotate with @Transactional then it will not apply<br>
 
-Transaction Management in Spring uses AOP
-1. Uses pointcut expression to search the method having @Transactional annotaion
-	@within("org.sf.transaction.annotaion.Transactional")
-2. once the pointcut expression mathches, run an Around type Advice
+Transaction Management in Spring uses AOP<br>
+1. Uses pointcut expression to search the method having @Transactional annotaion<br>
+	@within("org.sf.transaction.annotaion.Transactional")<br>
+2. once the pointcut expression mathches, run an Around type Advice<br>
 
-TransactionInterceptor.java
-TransactionAsceptSupport.java
-    - invokeWithInTransaction
-		- CreatTransactionIfNeccessary
-		- completTransactionAfterThrowing
-	    - CommitTransactionAfterReturning
+TransactionInterceptor.java<br>
+TransactionAsceptSupport.java<br>
+    - invokeWithInTransaction<br>
+		- CreatTransactionIfNeccessary<br>
+		- completTransactionAfterThrowing<br>
+	    - CommitTransactionAfterReturning<br>
 		
-Transactional Context
+Transactional Context<br>
 -------------------------------
-Transaction Managers
+Transaction Managers<br>
 --------------------------------
-1.Programatically
-2. Declarative
+1.Programatically<br>
+2. Declarative<br>
 
-Transaction Propagations
-- REQUIRED
-- SUPPORTS
-- MANDATORY
--REQUIRES_NEW
--NOT_SUPPORTED
--NEVER
--NESTED
+Transaction Propagations<br>
+- REQUIRED<br>
+- SUPPORTS<br>
+- MANDATORY<br>
+-REQUIRES_NEW<br>
+-NOT_SUPPORTED<br>
+-NEVER<br>
+-NESTED<br>
 
-Isolation Levels
--DEFAULT
--READ_UNCOMMITTED
--READ_COMMITED
--REAPEATABLE_READ
--SEARIALIZABLE
+Isolation Levels<br>
+-DEFAULT<br>
+-READ_UNCOMMITTED<br>
+-READ_COMMITED<br>
+-REAPEATABLE_READ<br>
+-SEARIALIZABLE<br>
 
-Transactios Timeout
--Read Only
+Transactios Timeout<br>
+-Read Only<br>
 
-Spring Transactions Part 2: Understanding Transaction Managers in Spring
+Spring Transactions Part 2: Understanding Transaction Managers in Spring<br>
 -----------------------------------------------------------------------------------------------------------------
-https://www.youtube.com/watch?v=wDMMD2pYNmg
+https://www.youtube.com/watch?v=wDMMD2pYNmg<br>
 
 
-Transaction-1.png
-Transaction-2.png
-Transaction-3.png
+Transaction-1.png<br>
+Transaction-2.png<br>
+Transaction-3.png<br>
 
-DataSourceTransactionManager
-JPA Transaction Manager --> used this one 
-JTA Transaction Manager (Used for two phase commit transactions i.e distributed transaction)
+DataSourceTransactionManager<br>
+JPA Transaction Manager --> used this one <br>
+JTA Transaction Manager (Used for two phase commit transactions i.e distributed transaction)<br>
 
-We can tell which Transaction Manger need to use but default JPA Transaction MAnager
+We can tell which Transaction Manger need to use but default JPA Transaction MAnager<br>
 
-@Bean
-public PlatformTranasctionManager transactionManager(DataSource dataSource) {
-	return new DataSourceTransactionManager(datasource);
-}
+@Bean<br>
+public PlatformTranasctionManager transactionManager(DataSource dataSource) {<br>
+	return new DataSourceTransactionManager(datasource);<br>
+}<br>
 
-Declarative
-@Transactional(transactionManager= "transactionManager")
+Declarative<br>
+@Transactional(transactionManager= "transactionManager")<br>
 
 Programatically
 -----------------
--Handle by Us
-Transaction-4.png
-Approach-1
+-Handle by Us<br>
+Transaction-4.png<br>
+Approach-1<br>
 -----------------------
-Transaction-5.png
+Transaction-5.png<br>
 
 Approach-2
 -----------------------
 @Bean
-public PlatformTranasctionManager transactionManager(DataSource dataSource) {
-	return new DataSourceTransactionManager(datasource);
+public PlatformTranasctionManager transactionManager(DataSource dataSource) {<br>
+	return new DataSourceTransactionManager(datasource);<br>
 }
 
 @Bean
-public TransactionTemplate transactionTemplate(PlatformTranasctionManager transactionManager){
-	return new TransactionTemplate(transactionManager);
-}
-TransactionTemplate
-Transaction-6.png
+public TransactionTemplate transactionTemplate(PlatformTranasctionManager transactionManager){<br>
+	return new TransactionTemplate(transactionManager);<br>
+}<br>
+TransactionTemplate<br>
+Transaction-6.png<br>
 
-Spring Transaction Propagation Explained | Spring Boot Transactions Part 3
+Spring Transaction Propagation Explained | Spring Boot Transactions Part 3<br>
 ------------------------------------------------------------------------------------------------------------
-https://www.youtube.com/watch?v=LCltftLZ_W0
+https://www.youtube.com/watch?v=LCltftLZ_W0<br>
 
 ## What is The readOnly = true
-The readOnly = true attribute is a configuration option used within Spring's @Transactional annotation to optimize database operations that only read data and do not modify it.
-It acts as a performance hint to both the Spring framework and the underlying JPA provider (like Hibernate).
+The readOnly = true attribute is a configuration option used within Spring's @Transactional annotation to optimize database operations that only read data and do not modify it.<br>
+It acts as a performance hint to both the Spring framework and the underlying JPA provider (like Hibernate).<br>
 
 #Key Functions of readOnly = true
 **Performance Optimization:** When set to true, the persistence provider knows it doesn't need to track changes to the entities you load. It skips internal "dirty checking," which significantly reduces overhead and speeds up the transaction execution.
@@ -152,25 +152,25 @@ You should apply @Transactional(readOnly = true) to any service method that only
 
 * Data 1
   
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;<br>
+import org.springframework.stereotype.Service;<br>
 
-@Service
-public class ProductService {
+@Service<br>
+public class ProductService {<br><br>
 
-    // This method only retrieves a product; it does not change anything in the DB.
-    @Transactional(readOnly = true) 
-    public Product getProductDetails(Long productId) {
-        return productRepository.findById(productId).orElse(null);
-    }
+    // This method only retrieves a product; it does not change anything in the DB.<br>
+    @Transactional(readOnly = true) <br>
+    public Product getProductDetails(Long productId) {<br>
+        return productRepository.findById(productId).orElse(null);<br>
+    }<br>
 
-    // This method needs to write data, so we use the default (readOnly = false).
-    @Transactional // same as @Transactional(readOnly = false)
-    public void updateProductPrice(Long productId, double newPrice) {
-        Product product = productRepository.findById(productId).get();
-        product.setPrice(newPrice);
-        // Hibernate tracks this change and executes an UPDATE query
-        productRepository.save(product); 
+    // This method needs to write data, so we use the default (readOnly = false).<br>
+    @Transactional // same as @Transactional(readOnly = false)<br>
+    public void updateProductPrice(Long productId, double newPrice) {<br>
+        Product product = productRepository.findById(productId).get();<br>
+        product.setPrice(newPrice);<br>
+        // Hibernate tracks this change and executes an UPDATE query<br>
+        productRepository.save(product); <br>
     }
 }
 
@@ -199,12 +199,12 @@ value or transactionManager: A string qualifier used to specify which PlatformTr
 Spring-WebFlux
 -----------------------
 
-Learn to write Reactive programming and build Reactive MicroServices using Spring WebFlux and project Reactor
-Instructor
-Pragmatic Code School
-Technology Enthusiast, Online Instruct  (Dillip)
-https://happiestminds.udemy.com/user/dilipsundarraj2/
+Learn to write Reactive programming and build Reactive MicroServices using Spring WebFlux and project Reactor<br>
+Instructor<br>
+Pragmatic Code School<br>
+Technology Enthusiast, Online Instruct  (Dillip)<br>
+https://happiestminds.udemy.com/user/dilipsundarraj2/<br>
 
 
-The AWS SDK for Java 1.x is not fully deprecated but is in maintenance mode and will reach end-of-support on December 31, 2025. This means it will only receive critical bug and security fixes and will no longer get new features or region updates. The recommendation is to migrate to the AWS SDK for Java 2.x. 
+The AWS SDK for Java 1.x is not fully deprecated but is in maintenance mode and will reach end-of-support on December 31, 2025. This means it will only receive critical bug and security fixes and will no longer get new features or region updates. The recommendation is to migrate to the AWS SDK for Java 2.x. <br>
 

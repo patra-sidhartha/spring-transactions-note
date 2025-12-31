@@ -22,14 +22,14 @@ Transactional
 -------------------------
 Helps to acheive ACID properties
 
-A(Atomicity)
-	Ensure all the operationss in  transcation are completly successfully, if any operation fails then entire transaction is rolled back.
-C(Consitency)
-	Ensure the DB start before and after transaction is consistency.
-I(Isolation)
-	Ensure that, if multiple transactions are running parallel, they donot interfere with each other.
-D(Durability)
-	Ensure that commited transactions will never be lost despite of system failures.
+A(Atomicity) <br>
+	Ensure all the operationss in  transcation are completly successfully, if any operation fails then entire transaction is rolled back. <br>
+C(Consitency) <br>
+	Ensure the DB start before and after transaction is consistency.<br>
+I(Isolation)<br>
+	Ensure that, if multiple transactions are running parallel, they donot interfere with each other.<br>
+D(Durability)<br>
+	Ensure that commited transactions will never be lost despite of system failures.<br>
 	
 BEGIN_TRANSACTION
 	- Debit from A

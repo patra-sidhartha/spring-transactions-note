@@ -138,19 +138,19 @@ Spring Transaction Propagation Explained | Spring Boot Transactions Part 3<br>
 ------------------------------------------------------------------------------------------------------------
 https://www.youtube.com/watch?v=LCltftLZ_W0<br>
 
-## What is The readOnly = true
+## What is The readOnly = true<br>
 The readOnly = true attribute is a configuration option used within Spring's @Transactional annotation to optimize database operations that only read data and do not modify it.<br>
 It acts as a performance hint to both the Spring framework and the underlying JPA provider (like Hibernate).<br>
 
-#Key Functions of readOnly = true
-**Performance Optimization:** When set to true, the persistence provider knows it doesn't need to track changes to the entities you load. It skips internal "dirty checking," which significantly reduces overhead and speeds up the transaction execution.
-**Prevents Data Modification:** It ensures that the transaction session is used purely for reading. If your code attempts an INSERT, UPDATE, or DELETE operation within a readOnly = true block, the provider will usually throw an error or simply ignore the write operation.
-**Database Connection Hints:** In some database systems, this flag allows Spring to use database connection configurations optimized for reading, potentially using different isolation levels or fewer locks.
+#Key Functions of readOnly = true<br>
+**Performance Optimization:** When set to true, the persistence provider knows it doesn't need to track changes to the entities you load. It skips internal "dirty checking," which significantly reduces overhead and speeds up the transaction execution.<br>
+**Prevents Data Modification:** It ensures that the transaction session is used purely for reading. If your code attempts an INSERT, UPDATE, or DELETE operation within a readOnly = true block, the provider will usually throw an error or simply ignore the write operation.<br>
+**Database Connection Hints:** In some database systems, this flag allows Spring to use database connection configurations optimized for reading, potentially using different isolation levels or fewer locks.<br>
 
 **When to Use It**
-You should apply @Transactional(readOnly = true) to any service method that only fetches data and does not modify the database state.
+You should apply @Transactional(readOnly = true) to any service method that only fetches data and does not modify the database state.<br><br>
 
-* Data 1
+* Data 1<br>
   
 import org.springframework.transaction.annotation.Transactional;<br>
 import org.springframework.stereotype.Service;<br>
